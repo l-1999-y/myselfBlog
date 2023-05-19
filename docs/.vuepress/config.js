@@ -3,6 +3,7 @@ module.exports = {
   lang: 'zh-CN',
   title: 'MySelf',
   head: [['link', { rel: 'icon', href: '/images/logo.png' }]],
+  base:'/myselfBlog/',
   themeConfig: {
     sidebarDepth: 2,
     home:false,
