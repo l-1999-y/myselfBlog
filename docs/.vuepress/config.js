@@ -31,7 +31,8 @@ module.exports = {
           title: 'JavaScript',
           collapsible: true,
           children: [
-            {title:'简介', path:'/JavaScript/'},
+            '/JavaScript/',
+            // {title:'事件循环', path:'/JavaScript/'},
             '/JavaScript/防抖',
             '/JavaScript/节流',
           ],
