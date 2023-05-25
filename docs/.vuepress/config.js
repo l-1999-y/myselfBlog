@@ -32,7 +32,9 @@ module.exports = {
           collapsible: true,
           children: [
             '/JavaScript/',
-            // {title:'事件循环', path:'/JavaScript/'},
+            '/JavaScript/渲染原理',
+            '/JavaScript/CSS 属性计算过程',
+            '/JavaScript/你不知道的 CSS 之包含块',
             '/JavaScript/防抖',
             '/JavaScript/节流',
           ],
