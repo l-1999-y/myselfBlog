@@ -25,12 +25,71 @@ function parseLrc() {
     var obj = { time: parseTime(timeStr), word: part[1] };
     result.push(obj);
   }
-  console.log(result);
+  return result;
 }
 var LrcData = parseLrc();
- /**
-  * 计算出当前LrcData中的应该
-  */
-function findIndex() {
-  
+var doms = {
+  audio: document.querySelector('audio'),
+  ul: document.querySelector('ul'),
+  container: document.querySelector('.container')
 }
+
+/**
+ * 计算出当前LrcData中的应该高亮的歌词下标
+ * 如果没有任何一句歌词需要显示则得到-1
+ */
+function findIndex() {
+  console.log(doms.audio.currentTime);
+  var curTime = doms.audio.currentTime;
+  for (let i = 0; i < LrcData.length; i++) {
+    if (curTime < LrcData[i].time) {
+      return i - 1;
+    }
+    // 遍历之后都没找到说明是最后一句歌词
+    return LrcData.length - 1;
+
+  }
+}
+
+/**
+ * 创建歌词 li
+ */
+function createDom() {
+  var flag = document.createDocumentFragment(); //创建fragment对象,文档片段，脱离dom数
+  for (let i = 0; i < LrcData.length; i++) {
+    var li = document.createElement('li');
+    li.textContent = LrcData[i].word;
+    doms.ul.appendChild(li);
+  }
+  doms.ul.appendChild(flag);
+}
+createDom();
+
+var containerHeight = doms.container.clientHeight;
+// 每个li的高度
+var linHeight = doms.ul.children[0].clientHeight;
+var maxHeight = doms.ul.clientHeight - containerHeight;
+/**
+ * 设置ul的偏移量
+ */
+function offset() {
+  var index = findIndex();
+  var offset = linHeight * index + linHeight / 2 - containerHeight / 2;
+  if (offset < 0) {
+    offset = 0;
+  }
+  if (offset > maxHeight) {
+    offset = maxHeight
+  }
+  doms.ul.style.transform = 'translateY(-' + offset + 'px)';
+  var li = doms.ul.querySelector('.active')
+  if (li) {
+    li.classList.remove('active');
+  }
+  li = doms.ul.children[index];
+  if (li) {
+    li.classList.add('active');
+  }
+}
+
+doms.audio.addEventListener('timeupdate', offset);
