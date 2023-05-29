@@ -20,7 +20,7 @@ audio {
 }
 
 .container ul{
-transition: 0.2s;
+transition: 0.6s;
 list-style: none;
 }
 
@@ -29,7 +29,7 @@ list-style: none;
   line-height: 30px;
   transition: 0.2s;
 }
-.container li .active{
+.container li.active{
   color: #fff;
   transform: (1.3);
 }

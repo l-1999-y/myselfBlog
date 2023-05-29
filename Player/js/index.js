@@ -1,4 +1,4 @@
-console.log(lrc)
+// console.log(lrc)
 
 /**
  * 将一个时间字符串转换为数字
@@ -39,18 +39,15 @@ var doms = {
  * 如果没有任何一句歌词需要显示则得到-1
  */
 function findIndex() {
-  console.log(doms.audio.currentTime);
   var curTime = doms.audio.currentTime;
-  for (let i = 0; i < LrcData.length; i++) {
+  for (var i = 0; i < LrcData.length; i++) {
     if (curTime < LrcData[i].time) {
       return i - 1;
     }
-    // 遍历之后都没找到说明是最后一句歌词
-    return LrcData.length - 1;
-
   }
+  // 遍历之后都没找到说明是最后一句歌词
+  return LrcData.length - 1;
 }
-
 /**
  * 创建歌词 li
  */
@@ -58,8 +55,8 @@ function createDom() {
   var flag = document.createDocumentFragment(); //创建fragment对象,文档片段，脱离dom数
   for (let i = 0; i < LrcData.length; i++) {
     var li = document.createElement('li');
-    li.textContent = LrcData[i].word;
-    doms.ul.appendChild(li);
+    li.textContent = LrcData[i].word; // 改动dom树
+    flag.appendChild(li);
   }
   doms.ul.appendChild(flag);
 }
@@ -69,10 +66,11 @@ var containerHeight = doms.container.clientHeight;
 // 每个li的高度
 var linHeight = doms.ul.children[0].clientHeight;
 var maxHeight = doms.ul.clientHeight - containerHeight;
+console.log(containerHeight, linHeight, maxHeight)
 /**
  * 设置ul的偏移量
  */
-function offset() {
+function setOffset() {
   var index = findIndex();
   var offset = linHeight * index + linHeight / 2 - containerHeight / 2;
   if (offset < 0) {
@@ -81,7 +79,7 @@ function offset() {
   if (offset > maxHeight) {
     offset = maxHeight
   }
-  doms.ul.style.transform = 'translateY(-' + offset + 'px)';
+  doms.ul.style.transform = `translateY(-${offset}px)`;
   var li = doms.ul.querySelector('.active')
   if (li) {
     li.classList.remove('active');
@@ -90,6 +88,7 @@ function offset() {
   if (li) {
     li.classList.add('active');
   }
+  // console.log(offset)
 }
 
-doms.audio.addEventListener('timeupdate', offset);
+doms.audio.addEventListener('timeupdate', setOffset);
