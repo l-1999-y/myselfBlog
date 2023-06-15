@@ -33,6 +33,7 @@ module.exports = {
           children: [
             '/JavaScript/',
             '/JavaScript/渲染原理',
+            '/JavaScript/懒加载',
             '/JavaScript/属性描述符',
             '/JavaScript/CSS 属性计算过程',
             '/JavaScript/你不知道的 CSS 之包含块',

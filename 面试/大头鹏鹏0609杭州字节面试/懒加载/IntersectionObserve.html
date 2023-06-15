@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InterSectionObserve API</title>
+  <style>
+    div {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    img {
+      width: 500px;
+      height: 500px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+  </div>
+</body>
+<script>
+  const ele = document.querySelectorAll('img')
+  const callback = entries => { // 设置构造函数中接收到的参数中的操作事项
+    entries.forEach(entry => { // 因为entries里面放着所有被观察的节点，所有需要遍历判断
+      if (entry.isIntersecting) { // 判断当前节点是否在可视区域能被看到
+        console.log(entry)
+        const image = entry.target; // 通过事件对象拿到这个元素
+        const data_url = image.getAttribute("data-src"); // 获取该元素data-src中存放的路径
+        image.setAttribute("src", data_url); // 赋值给真实路径
+        Observer.unobserve(image); // 停止观察
+      }
+    })
+  }
+  const Observer = new IntersectionObserver(callback); // 生成实例
+  ele.forEach(img => Observer.observe(img))// 通过遍历对所有Img元素都进行观察
+</script>
+
+</html>

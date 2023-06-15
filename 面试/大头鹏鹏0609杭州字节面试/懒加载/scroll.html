@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>scroll 事件监听</title>
+  <style>
+    div {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    img {
+      width: 500px;
+      height: 500px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <img src="./img.jpeg" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+    <img src="" alt="" data-src="./img.jpeg" />
+  </div>
+</body>
+<script>
+  const ele = document.querySelectorAll('img')
+  const h = window.innerHeight //浏览器视口的高度
+  const lazy = () => {
+    ele.forEach((item, index) => {
+      const t = item.getBoundingClientRect().top //当前元素的top距浏览器top的距离
+      if (t < h && !item.attributes.src.value) {
+        console.log(t, h)
+        console.log(item)
+        item.src = item.dataset.src
+      }
+    })
+  }
+  lazy()
+  window.addEventListener('scroll', lazy)
+</script>
+
+</html>
